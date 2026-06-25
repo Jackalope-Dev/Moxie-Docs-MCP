@@ -1,0 +1,63 @@
+{
+  "name": "moxie-docs",
+  "version": "0.1.0",
+  "description": "CLI and open-source interface for the Moxie Docs MCP server and agent skills.",
+  "type": "module",
+  "bin": {
+    "moxie-docs": "dist/cli.js"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "skills",
+    "templates",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsx src/cli/cli.ts",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run typecheck && npm run test && npm run build"
+  },
+  "keywords": [
+    "moxie",
+    "moxie-docs",
+    "mcp",
+    "model-context-protocol",
+    "documentation",
+    "ai",
+    "agents",
+    "claude",
+    "cursor"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jackalope-Dev/Moxie-Docs-MCP.git"
+  },
+  "homepage": "https://moxiedocs.com",
+  "bugs": {
+    "url": "https://github.com/Jackalope-Dev/Moxie-Docs-MCP/issues"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsup": "^8.3.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}

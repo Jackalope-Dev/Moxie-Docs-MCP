@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.npmrc
+*.log
+*.tsbuildinfo
+.DS_Store
+coverage/
+.moxie-docs/
+.env
+.env.*
