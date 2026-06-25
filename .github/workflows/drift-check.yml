@@ -1,0 +1,27 @@
+name: Drift check
+
+# Verifies this package's interface snapshot still matches the live Moxie Docs
+# server (server-card version/protocol/endpoint + the served SKILL.md). Runs on a
+# schedule and on demand; no secrets needed (public endpoints only).
+
+on:
+  schedule:
+    - cron: "0 14 * * 1" # Mondays 14:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  drift:
+    runs-on: ubuntu-latest
+    env:
+      MOXIE_DRIFT_CHECK: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npx vitest run contract-drift

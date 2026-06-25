@@ -31,6 +31,7 @@
     "dev": "tsx src/cli/cli.ts",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
+    "check:drift": "vitest run contract-drift",
     "prepublishOnly": "npm run typecheck && npm run test && npm run build"
   },
   "keywords": [

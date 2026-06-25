@@ -1,5 +1,7 @@
 # Moxie Docs — MCP & Agent Tools
 
+[![npm version](https://img.shields.io/npm/v/moxie-docs.svg)](https://www.npmjs.com/package/moxie-docs)
+
 The **Moxie Docs** Model Context Protocol (MCP) server, the agent **skills** Moxie installs into your repository, and the **`moxie-docs` CLI** that wires it all up — `npx moxie-docs setup`.
 
 This repo is also the open-source home of the **`moxie-docs` npm package**: a setup CLI plus the MCP *interface* (tool catalog, prompts, server metadata, and skill renderers) you can import. The hosted server, indexing pipeline, and your generated docs stay in the private Moxie service.
