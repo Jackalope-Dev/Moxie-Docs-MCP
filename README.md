@@ -1,6 +1,7 @@
 # Moxie Docs — MCP & Agent Tools
 
 [![npm version](https://img.shields.io/npm/v/moxie-docs.svg)](https://www.npmjs.com/package/moxie-docs)
+[![smithery badge](https://smithery.ai/badge/caden/moxie-docs)](https://smithery.ai/servers/caden/moxie-docs)
 
 The **Moxie Docs** Model Context Protocol (MCP) server, the agent **skills** Moxie installs into your repository, and the **`moxie-docs` CLI** that wires it all up — `npx moxie-docs setup`.
 
