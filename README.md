@@ -1,3 +1,9 @@
+<p align="center">
+  <img src="https://moxiedocs.com/moxie-fox.svg" alt="Moxie Docs" width="120" />
+  <br />
+  <a href="https://moxiedocs.com">Visit Moxie Docs</a>
+</p>
+
 # Moxie Docs — MCP & Agent Tools
 
 [![npm version](https://img.shields.io/npm/v/moxie-docs.svg)](https://www.npmjs.com/package/moxie-docs)
