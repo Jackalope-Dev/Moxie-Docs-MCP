@@ -1,0 +1,28 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.jackalope-dev/moxie-docs",
+  "title": "Moxie Docs",
+  "description": "Living documentation and MCP context for your GitHub repositories — conventions, doc gaps, verified commands, and source-cited docs that stay current on every merge.",
+  "repository": {
+    "url": "https://github.com/Jackalope-Dev/Moxie-Docs-MCP",
+    "source": "github"
+  },
+  "version": "0.1.0",
+  "websiteUrl": "https://moxiedocs.com/mcp",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://moxiedocs.com/api/mcp"
+    }
+  ],
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "moxie-docs",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}

@@ -232,6 +232,22 @@ What it does **not** include: the tool handlers, the indexing/doc-generation pip
 
 ---
 
+## MCP Registry
+
+Moxie Docs is published to the [Official MCP Registry](https://registry.modelcontextprotocol.io/) as `io.github.jackalope-dev/moxie-docs`. The metadata lives in [`server.json`](server.json) in this repo.
+
+To publish an update after changing `server.json` or bumping the npm version:
+
+```bash
+# Authenticate once (GitHub device flow)
+mcp-publisher login github
+
+# From this repo root
+mcp-publisher publish
+```
+
+PulseMCP and other directories ingest from the official registry weekly. After publishing, email [hello@pulsemcp.com](mailto:hello@pulsemcp.com) if you want the listing refreshed sooner.
+
 ## Discovery endpoints
 
 Moxie publishes a small machine-discoverable surface so agents and crawlers can find the server:
