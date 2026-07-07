@@ -1,7 +1,7 @@
 {
   "name": "moxie-docs",
   "version": "0.1.0",
-  "mcpName": "io.github.jackalope-dev/moxie-docs",
+  "mcpName": "io.github.Jackalope-Dev/moxie-docs",
   "description": "CLI and open-source interface for the Moxie Docs MCP server and agent skills.",
   "type": "module",
   "bin": {

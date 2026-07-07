@@ -37,6 +37,7 @@ This repository is documentation and distribution assets only. The hosted server
   - [The `moxie-docs` skill](#the-moxie-docs-skill)
   - [What Moxie installs into your repository](#what-moxie-installs-into-your-repository)
 - [Use as a library](#use-as-a-library)
+- [Find the server](#find-the-server)
 - [Discovery endpoints](#discovery-endpoints)
 - [License](#license)
 
@@ -232,21 +233,17 @@ What it does **not** include: the tool handlers, the indexing/doc-generation pip
 
 ---
 
-## MCP Registry
+## Find the server
 
-Moxie Docs is published to the [Official MCP Registry](https://registry.modelcontextprotocol.io/) as `io.github.jackalope-dev/moxie-docs`. The metadata lives in [`server.json`](server.json) in this repo.
+Moxie Docs is listed for MCP clients and directories under these names:
 
-To publish an update after changing `server.json` or bumping the npm version:
+| Where | Identifier / link |
+| --- | --- |
+| **Official MCP Registry** | [`io.github.Jackalope-Dev/moxie-docs`](https://registry.modelcontextprotocol.io/) — search for `moxie-docs` |
+| **Smithery** | [smithery.ai/servers/caden/moxie-docs](https://smithery.ai/servers/caden/moxie-docs) (badge above) |
+| **npm CLI** | [`moxie-docs`](https://www.npmjs.com/package/moxie-docs) — `npx moxie-docs setup` |
 
-```bash
-# Authenticate once (GitHub device flow)
-mcp-publisher login github
-
-# From this repo root
-mcp-publisher publish
-```
-
-PulseMCP and other directories ingest from the official registry weekly. After publishing, email [hello@pulsemcp.com](mailto:hello@pulsemcp.com) if you want the listing refreshed sooner.
+Machine-readable registry metadata for the hosted endpoint is in [`server.json`](server.json) in this repo.
 
 ## Discovery endpoints
 
