@@ -9,5 +9,6 @@
  */
 export * from "./interface/tools";
 export * from "./interface/server-info";
+export * from "./interface/server-card";
 export * from "./interface/prompts";
 export * from "./interface/skill";

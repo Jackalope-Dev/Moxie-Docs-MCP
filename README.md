@@ -221,6 +221,9 @@ import {
   moxieMcpServerInfo,       // { name, version }
   moxieMcpProtocolVersion,  // "2025-06-18"
   moxieMcpCapabilities,
+  buildMoxieMcpServerCard,  // full /.well-known/mcp/server-card.json document
+  moxieMcpServerCard,       // canonical server card (tools + prompts included)
+  moxieMcpPublicMethods,    // ["initialize", "tools/list", "prompts/list"]
   renderSkillMarkdown,      // ({ repository }) => the moxie-docs SKILL.md for a repo
   renderAgentsGuidanceBlock,// ({ repository }) => the AGENTS.md guidance block
   moxieDocsSkillMarkdown,   // the canonical published skill, as a string
@@ -251,7 +254,7 @@ Moxie publishes a small machine-discoverable surface so agents and crawlers can 
 
 | Endpoint | What it serves |
 | --- | --- |
-| `/.well-known/mcp/server-card.json` | MCP server card: `serverInfo`, protocol version, transport, capabilities. |
+| `/.well-known/mcp/server-card.json` | MCP server card: `serverInfo`, protocol version, transport, capabilities, full `tools`/`prompts` catalogs, and `publicMethods` (unauthenticated listing). |
 | `/.well-known/api-catalog` | RFC 9727 catalog linking to the server card and human docs. |
 | `/.well-known/agent-skills/index.json` | Agent Skills discovery index (skills + SHA-256 digests). |
 | `/.well-known/agent-skills/moxie-docs/SKILL.md` | The published `moxie-docs` skill. |

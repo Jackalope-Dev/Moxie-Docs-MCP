@@ -4,6 +4,11 @@ All notable changes to the `moxie-docs` package are documented here. The format 
 
 ## [Unreleased]
 
+### Added
+
+- `buildMoxieMcpServerCard`, `moxieMcpServerCard`, and `moxieMcpPublicMethods` exports for the public discovery document at `/.well-known/mcp/server-card.json`, including the full tool and prompt catalogs.
+- Contract drift checks for unauthenticated `tools/list` and `prompts/list` on the hosted MCP endpoint.
+
 ## [0.1.0] - 2026-06-25
 
 ### Added
