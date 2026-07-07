@@ -2,7 +2,7 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.jackalope-dev/moxie-docs",
   "title": "Moxie Docs",
-  "description": "Living documentation and MCP context for your GitHub repositories — conventions, doc gaps, verified commands, and source-cited docs that stay current on every merge.",
+  "description": "Living docs and MCP context for GitHub repos — conventions, gaps, and source-cited pages on merge.",
   "repository": {
     "url": "https://github.com/Jackalope-Dev/Moxie-Docs-MCP",
     "source": "github"
