@@ -8,3 +8,4 @@ coverage/
 .moxie-docs/
 .env
 .env.*
+mcp-publisher.exe
