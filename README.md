@@ -219,6 +219,12 @@ The installed skill is the repo-specific variant of [`skills/moxie-docs/SKILL.md
 
 ---
 
+## Cursor Rules
+
+Moxie Docs publishes native Cursor rule files (`.mdc`) for [Cursor](https://cursor.com) AI Agent mode. The canonical rule lives in this repository at [`rules/moxie-docs.mdc`](rules/moxie-docs.mdc) and can be added to your repository under `.cursor/rules/moxie-docs.mdc` or imported via [cursor.directory](https://cursor.directory).
+
+---
+
 ## Use as a library
 
 The package also exports the open-source MCP **interface** — the backend-independent contract — so you can build tooling against Moxie without depending on the private server. It carries no secrets and no server logic.
