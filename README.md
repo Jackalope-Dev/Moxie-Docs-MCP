@@ -154,9 +154,18 @@ Most agents accept a remote MCP server with a URL and headers. Replace `<MOXIE_T
 
 > Keep tokens out of source control. Reference an environment variable where your client supports it, or paste the token only into local, untracked config.
 
-### Tools
+## Tools
 
-All tools are read-only except the two `propose_*` tools, which return a proposal for the agent to apply in its own branch.
+- **`moxie.get_ai_context`**: Compact pre-edit briefing: repo status, verified commands, top conventions, open gaps, team notes. Read this first.
+- **`moxie.get_doc_impact`**: Given the paths you're about to change (and any you're deleting), returns the conventions, gaps, and existing docs whose evidence overlaps them.
+- **`moxie.get_conventions`**: Discovered coding conventions, grouped by category, with confidence scores, agent guidance, and source-file citations.
+- **`moxie.search_docs`**: Semantic + keyword search over generated docs, conventions, gaps, and AI context.
+- **`moxie.get_doc_gaps`**: Unresolved documentation gaps with severity and the paths they concern.
+- **`moxie.get_documentation_opportunities`**: Recommended doc work: missing docs, drift repairs, and PR templates.
+- **`moxie.get_documentation_patterns`**: How the repository organizes and maintains its docs (where new docs belong).
+- **`moxie.list_docs`**: Paginated, section-grouped table of contents of every generated doc.
+- **`moxie.propose_doc_update`**: Add or update a doc as part of your current change; returns target path + Markdown to write into branch.
+- **`moxie.propose_doc_removal`**: Remove a Moxie-tracked doc your change makes obsolete; returns path to delete in branch.
 
 | Tool | Purpose |
 | --- | --- |
@@ -207,6 +216,12 @@ When Moxie connects a repository it opens one **"Add Moxie agent guidance"** PR 
 | `.agents/skills/moxie-docs/SKILL.md` | The same skill for `.agents`-aware clients. |
 
 The installed skill is the repo-specific variant of [`skills/moxie-docs/SKILL.md`](skills/moxie-docs/SKILL.md): identical workflow, with your `owner/name` baked in so multi-repo tokens target the right repository. Everything Moxie writes is deterministic and contains no volatile data — live conventions and commands always come from the MCP server, not the committed file.
+
+---
+
+## Cursor Rules
+
+Moxie Docs publishes native Cursor rule files (`.mdc`) for [Cursor](https://cursor.com) AI Agent mode. The canonical rule lives in this repository at [`rules/moxie-docs.mdc`](rules/moxie-docs.mdc) and can be added to your repository under `.cursor/rules/moxie-docs.mdc` or imported via [cursor.directory](https://cursor.directory).
 
 ---
 

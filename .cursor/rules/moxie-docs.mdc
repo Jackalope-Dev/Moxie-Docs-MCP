@@ -1,0 +1,18 @@
+---
+description: Ground Cursor AI Agent in live repository conventions, architecture docs, and doc impact analysis using Moxie Docs MCP server.
+globs: ["**/*"]
+---
+
+# Moxie Docs — Cursor Agent Rule
+
+This repository uses **Moxie Docs** for living codebase documentation and MCP context.
+
+When building features, refactoring code, or fixing bugs in this codebase:
+
+## Pre-Edit Workflow
+1. **Fetch Live Context:** Before writing code, call `moxie.get_ai_context` to retrieve current setup status, architecture conventions, verified build/test commands, and open documentation gaps.
+2. **Analyze Doc Impact:** Call `moxie.get_doc_impact` with the list of file paths you plan to modify or delete. It returns matching conventions, doc gaps, and existing docs to update in the same PR.
+
+## Implementation Guidelines
+3. **Follow Discovered Conventions:** Adhere strictly to the codebase conventions and verified test commands returned by Moxie Docs.
+4. **Update Docs in the Same PR:** Use `moxie.propose_doc_update` to generate target file paths and updated markdown content. Write these files into your branch so documentation updates ship with the code change.
