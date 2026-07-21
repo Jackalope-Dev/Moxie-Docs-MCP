@@ -7,6 +7,7 @@ import {
   clientLabel,
   detectClients,
   isClientName,
+  isGlobalClient,
   writeClientConfig,
   type ClientName,
 } from "../clients";
@@ -163,6 +164,13 @@ export async function run(args: string[]): Promise<void> {
 
   const writtenConfigs: string[] = [];
   for (const client of clients) {
+    if (isGlobalClient(client)) {
+      print(
+        dim(
+          `  Heads up: ${clientLabel(client)}'s MCP config is global — this will affect every project you open in ${clientLabel(client)}, not just this one.`,
+        ),
+      );
+    }
     const path = writeClientConfig(client, cwd, { token });
     writtenConfigs.push(`${clientLabel(client)}: ${path}`);
   }
@@ -223,7 +231,12 @@ export async function run(args: string[]): Promise<void> {
 
 /**
  * Resolve the set of clients to configure: from --client, else detected, else
- * prompt (or all when --yes and nothing detected).
+ * prompt (or all *local* clients when --yes and nothing detected).
+ *
+ * Global clients (Windsurf) are excluded from the blanket "select everything"
+ * fallbacks below — writing their config affects every project the user opens
+ * in that tool, so we only ever touch it when the user names it explicitly
+ * (--client windsurf) or `detectClients` found it actually installed.
  */
 async function resolveClients(
   flags: Record<string, string | boolean>,
@@ -250,15 +263,22 @@ async function resolveClients(
     return detected;
   }
 
+  const localClients = CLIENT_NAMES.filter((c) => !isGlobalClient(c));
+
   if (yes) {
-    return [...CLIENT_NAMES];
+    return [...localClients];
   }
 
   print("Which client(s) do you want to configure?");
   print(`  Options: ${CLIENT_NAMES.join(", ")} (comma-separated, or "all")`);
+  print(
+    dim(
+      `  ("all" configures ${localClients.join(", ")} — name a global client like windsurf explicitly to include it)`,
+    ),
+  );
   const answer = (await prompt("Clients:")).trim().toLowerCase();
   if (answer === "" || answer === "all") {
-    return [...CLIENT_NAMES];
+    return [...localClients];
   }
   return answer
     .split(",")

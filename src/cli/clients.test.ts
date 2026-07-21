@@ -1,10 +1,18 @@
 import { mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+
+const fakeHomedir = vi.hoisted(() => ({ current: "" }));
+vi.mock("node:os", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("node:os")>();
+  return { ...actual, homedir: () => fakeHomedir.current };
+});
+
 import {
   clientConfigPath,
   detectClients,
+  isGlobalClient,
   UnparseableConfigError,
   writeClientConfig,
 } from "./clients";
@@ -118,6 +126,69 @@ describe("writeClientConfig — vscode", () => {
       url: MOXIE_MCP_ENDPOINT,
       headers: { Authorization: "Bearer tok_vs" },
     });
+  });
+});
+
+describe("writeClientConfig — zed", () => {
+  it("uses the context_servers + plain url shape", () => {
+    const path = writeClientConfig("zed", cwd);
+    expect(path).toBe(join(cwd, ".zed", "settings.json"));
+    const json = readJson(path);
+    expect(json).toEqual({
+      context_servers: { "moxie-docs": { url: MOXIE_MCP_ENDPOINT } },
+    });
+  });
+
+  it("preserves other top-level settings.json keys", () => {
+    const file = join(cwd, ".zed", "settings.json");
+    mkdirSync(join(cwd, ".zed"), { recursive: true });
+    writeFileSync(file, JSON.stringify({ theme: "One Dark" }), "utf8");
+    writeClientConfig("zed", cwd);
+    const json = readJson(file) as { theme: string };
+    expect(json.theme).toBe("One Dark");
+  });
+});
+
+describe("writeClientConfig — windsurf (global)", () => {
+  let fakeHome: string;
+
+  beforeEach(() => {
+    fakeHome = mkdtempSync(join(tmpdir(), "moxie-home-"));
+    fakeHomedir.current = fakeHome;
+  });
+
+  afterEach(() => {
+    rmSync(fakeHome, { recursive: true, force: true });
+  });
+
+  it("is flagged as a global client", () => {
+    expect(isGlobalClient("windsurf")).toBe(true);
+    expect(isGlobalClient("cursor")).toBe(false);
+  });
+
+  it("writes to ~/.codeium/windsurf/mcp_config.json, not the project cwd", () => {
+    const path = writeClientConfig("windsurf", cwd);
+    expect(path).toBe(
+      join(fakeHome, ".codeium", "windsurf", "mcp_config.json"),
+    );
+    const json = readJson(path);
+    expect(json).toEqual({
+      mcpServers: { "moxie-docs": { serverUrl: MOXIE_MCP_ENDPOINT } },
+    });
+  });
+
+  it("uses serverUrl (not url) so Windsurf doesn't silently ignore the entry", () => {
+    const path = writeClientConfig("windsurf", cwd, { token: "tok_ws" });
+    const json = readJson(path) as { mcpServers: Record<string, unknown> };
+    expect(json.mcpServers["moxie-docs"]).toEqual({
+      serverUrl: MOXIE_MCP_ENDPOINT,
+      headers: { Authorization: "Bearer tok_ws" },
+    });
+  });
+
+  it("detects windsurf via the home directory, independent of cwd", () => {
+    mkdirSync(join(fakeHome, ".codeium", "windsurf"), { recursive: true });
+    expect(detectClients(cwd)).toContain("windsurf");
   });
 });
 

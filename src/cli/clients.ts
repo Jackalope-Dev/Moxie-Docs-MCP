@@ -4,7 +4,8 @@ import {
   readFileSync,
   writeFileSync,
 } from "node:fs";
-import { dirname, join } from "node:path";
+import { homedir } from "node:os";
+import { dirname, join, resolve } from "node:path";
 import { MOXIE_MCP_ENDPOINT } from "../interface/skill";
 
 /**
@@ -17,29 +18,46 @@ import { MOXIE_MCP_ENDPOINT } from "../interface/skill";
  * Per the 1-hour-token design rule, the default config is URL-only (the client
  * does its own OAuth). A long-lived dashboard token is written as an
  * Authorization header only when explicitly supplied.
+ *
+ * Most clients store a project-local config. Windsurf only supports a
+ * *global* config file (`~/.codeium/windsurf/mcp_config.json`) — writing it
+ * affects every project the user opens in Windsurf, not just this one. Callers
+ * that auto-select "all clients" (e.g. non-interactive setup with nothing
+ * detected) should exclude global clients unless the user asked for them by
+ * name or the client is actually detected on this machine; see
+ * `isGlobalClient`.
  */
 
 export const SERVER_KEY = "moxie-docs";
 
-export type ClientName = "claude-code" | "cursor" | "vscode";
+export type ClientName = "claude-code" | "cursor" | "vscode" | "windsurf" | "zed";
 
 export const CLIENT_NAMES: readonly ClientName[] = [
   "claude-code",
   "cursor",
   "vscode",
+  "windsurf",
+  "zed",
 ];
 
 interface ClientSpec {
   name: ClientName;
   /** Human label for messaging. */
   label: string;
-  /** Config file path relative to the project root. */
+  /** Config file path, relative to the project root unless `global` is set. */
   configFile: string;
   /**
    * Extra paths whose presence signals the client is in use (so we can detect
-   * it even before any MCP config exists).
+   * it even before any MCP config exists). Relative to the same base as
+   * `configFile`.
    */
   markerPaths: string[];
+  /**
+   * When true, `configFile`/`markerPaths` are resolved against the user's
+   * home directory instead of the project cwd (Windsurf has no project-local
+   * MCP config).
+   */
+  global?: boolean;
 }
 
 const CLIENT_SPECS: Record<ClientName, ClientSpec> = {
@@ -61,6 +79,19 @@ const CLIENT_SPECS: Record<ClientName, ClientSpec> = {
     configFile: join(".vscode", "mcp.json"),
     markerPaths: [join(".vscode", "mcp.json"), ".vscode"],
   },
+  windsurf: {
+    name: "windsurf",
+    label: "Windsurf",
+    configFile: join(".codeium", "windsurf", "mcp_config.json"),
+    markerPaths: [join(".codeium", "windsurf")],
+    global: true,
+  },
+  zed: {
+    name: "zed",
+    label: "Zed",
+    configFile: join(".zed", "settings.json"),
+    markerPaths: [join(".zed", "settings.json"), ".zed"],
+  },
 };
 
 export function isClientName(value: string): value is ClientName {
@@ -71,18 +102,30 @@ export function clientLabel(client: ClientName): string {
   return CLIENT_SPECS[client].label;
 }
 
+export function isGlobalClient(client: ClientName): boolean {
+  return Boolean(CLIENT_SPECS[client].global);
+}
+
+function clientBaseDir(client: ClientName, cwd: string): string {
+  return CLIENT_SPECS[client].global ? homedir() : cwd;
+}
+
 export function clientConfigPath(client: ClientName, cwd: string): string {
-  return join(cwd, CLIENT_SPECS[client].configFile);
+  return resolve(clientBaseDir(client, cwd), CLIENT_SPECS[client].configFile);
 }
 
 /**
- * Detect which supported clients appear to be in use in `cwd` — either their
- * MCP config file or their tool directory exists.
+ * Detect which supported clients appear to be in use — either their MCP
+ * config file or their tool directory exists. Global clients (Windsurf) are
+ * detected against the home directory, not `cwd`.
  */
 export function detectClients(cwd: string): ClientName[] {
-  return CLIENT_NAMES.filter((name) =>
-    CLIENT_SPECS[name].markerPaths.some((rel) => existsSync(join(cwd, rel))),
-  );
+  return CLIENT_NAMES.filter((name) => {
+    const base = clientBaseDir(name, cwd);
+    return CLIENT_SPECS[name].markerPaths.some((rel) =>
+      existsSync(resolve(base, rel)),
+    );
+  });
 }
 
 /**
@@ -146,6 +189,10 @@ function asObject(value: unknown): Record<string, unknown> {
 /**
  * Build the `moxie-docs` server entry for a given client. URL-only by default;
  * includes a Bearer Authorization header only when a token is supplied.
+ *
+ * Field names differ per client: vscode wants `type: "http"` + `url`;
+ * Windsurf wants `serverUrl` (its own `url` field is ignored, not an alias);
+ * claude-code, cursor, and zed all accept plain `url` + `headers`.
  */
 function buildServerEntry(
   client: ClientName,
@@ -161,7 +208,14 @@ function buildServerEntry(
     }
     return entry;
   }
-  // claude-code and cursor share the same shape.
+  if (client === "windsurf") {
+    const entry: Record<string, unknown> = { serverUrl: MOXIE_MCP_ENDPOINT };
+    if (token) {
+      entry.headers = { Authorization: `Bearer ${token}` };
+    }
+    return entry;
+  }
+  // claude-code, cursor, and zed share the same shape.
   const entry: Record<string, unknown> = { url: MOXIE_MCP_ENDPOINT };
   if (token) {
     entry.headers = { Authorization: `Bearer ${token}` };
@@ -187,7 +241,12 @@ export function writeClientConfig(
   const file = clientConfigPath(client, cwd);
   const config = readJsonObject(file);
 
-  const containerKey = client === "vscode" ? "servers" : "mcpServers";
+  const containerKey =
+    client === "vscode"
+      ? "servers"
+      : client === "zed"
+        ? "context_servers"
+        : "mcpServers";
   const container = asObject(config[containerKey]);
   container[SERVER_KEY] = buildServerEntry(client, options.token);
   config[containerKey] = container;

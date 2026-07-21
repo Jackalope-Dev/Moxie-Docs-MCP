@@ -43,6 +43,10 @@ const COMMANDS: Record<string, CommandSpec> = {
     summary: "Install the moxie-docs agent skill and AGENTS.md guidance.",
     load: () => import("./commands/install-skill"),
   },
+  check: {
+    summary: "Check local git changes for documentation drift.",
+    load: () => import("./commands/check"),
+  },
 };
 
 function helpText(): string {
