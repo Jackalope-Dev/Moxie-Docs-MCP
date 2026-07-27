@@ -10,13 +10,15 @@ const EXPECTED_TOOL_NAMES = [
   "moxie.get_documentation_patterns",
   "moxie.get_ai_context",
   "moxie.get_doc_impact",
+  "moxie.get_api_context",
+  "moxie.review_change",
   "moxie.propose_doc_update",
   "moxie.propose_doc_removal",
 ];
 
 describe("moxieMcpTools", () => {
-  it("exposes the 10 expected tools in order", () => {
-    expect(moxieMcpTools).toHaveLength(10);
+  it("exposes the 12 expected tools in order", () => {
+    expect(moxieMcpTools).toHaveLength(12);
     expect(moxieMcpTools.map((tool) => tool.name)).toEqual(EXPECTED_TOOL_NAMES);
   });
 

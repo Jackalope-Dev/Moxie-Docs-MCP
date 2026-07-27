@@ -68,7 +68,7 @@ haven't opened the PR yet.
 
 export const moxieDocsSkillMarkdown = `---
 name: moxie-docs
-description: Use when working in a GitHub repository connected to Moxie Docs — read its living documentation, conventions, and architecture context over the Moxie Docs MCP server before editing code, and keep those docs in sync by proposing doc updates and removals that land in the same PR as the code change.
+description: Use when working in a GitHub repository connected to Moxie Docs - read its living documentation, conventions, and architecture context over the Moxie Docs MCP server before editing code, and keep those docs in sync by proposing doc updates and removals that land in the same PR as the code change.
 ---
 
 # Moxie Docs MCP
@@ -96,26 +96,26 @@ Human documentation: https://moxiedocs.com/mcp
 Read context first so your change matches the repository's conventions and so
 any docs work lands in the same PR:
 
-1. \`moxie.get_ai_context\` — compact briefing: repo status, commands,
+1. \`moxie.get_ai_context\` - compact briefing: repo status, commands,
    conventions, doc gaps, and team notes. Read this first.
-2. \`moxie.get_doc_impact\` — pass the file paths you are about to change
+2. \`moxie.get_doc_impact\` - pass the file paths you are about to change
    (\`changedPaths\`); returns the conventions, doc gaps, and existing docs whose
    evidence overlaps those paths. List deletions in \`deletedPaths\` to surface
    docs that should be removed.
-3. \`moxie.get_conventions\` / \`moxie.search_docs\` — look up specific
+3. \`moxie.get_conventions\` / \`moxie.search_docs\` - look up specific
    conventions or search the generated docs for a topic.
 
 ## Keep docs in sync
 
 When your change adds, alters, or obsoletes behavior that the docs describe:
 
-- \`moxie.propose_doc_update\` — supply a \`title\` and the Markdown content;
+- \`moxie.propose_doc_update\` - supply a \`title\` and the Markdown content;
   Moxie resolves the target path and returns the path + Markdown for **you** to
   write into your working branch.
-- \`moxie.propose_doc_removal\` — name a Moxie-tracked doc your change makes
+- \`moxie.propose_doc_removal\` - name a Moxie-tracked doc your change makes
   irrelevant; Moxie validates the path and returns it for you to delete.
 
-Moxie records the proposal and hands the file back to you — it does **not** open
+Moxie records the proposal and hands the file back to you - it does **not** open
 a separate PR. Write the returned files into your branch so the docs ship in the
 **same PR** as the code.
 

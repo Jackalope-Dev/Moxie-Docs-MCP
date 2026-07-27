@@ -48,4 +48,17 @@ export const moxieMcpPrompts: McpPromptDescriptor[] = [
       },
     ],
   },
+  {
+    name: "review-before-finalize",
+    description:
+      "Self-review the change you just made before opening the PR: run Moxie's guardrail over your diff to catch convention breaches, docs your change makes false, undocumented new surface, and broken references.",
+    arguments: [
+      {
+        name: "repository",
+        description:
+          'Optional owner/name reference like "acme/app". Needed only when the token serves multiple repos.',
+        required: false,
+      },
+    ],
+  },
 ];

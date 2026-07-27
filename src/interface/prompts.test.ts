@@ -6,6 +6,7 @@ describe("moxieMcpPrompts", () => {
     const names = moxieMcpPrompts.map((prompt) => prompt.name);
     expect(names).toContain("document-this-change");
     expect(names).toContain("fix-stale-docs");
+    expect(names).toContain("review-before-finalize");
   });
 
   it("gives every prompt a description and optional arguments", () => {
