@@ -158,6 +158,8 @@ Most agents accept a remote MCP server with a URL and headers. Replace `<MOXIE_T
 
 - **`moxie.get_ai_context`**: Compact pre-edit briefing: repo status, verified commands, top conventions, open gaps, team notes. Read this first.
 - **`moxie.get_doc_impact`**: Given the paths you're about to change (and any you're deleting), returns the conventions, gaps, and existing docs whose evidence overlaps them.
+- **`moxie.get_api_context`**: Given paths you're about to touch, returns structured context for any API endpoints they map to: method, path, schema, and known consumers.
+- **`moxie.review_change`**: Self-review a change before opening the PR; returns a severity-ranked list of convention breaches, stale docs, undocumented surface, and broken references.
 - **`moxie.get_conventions`**: Discovered coding conventions, grouped by category, with confidence scores, agent guidance, and source-file citations.
 - **`moxie.search_docs`**: Semantic + keyword search over generated docs, conventions, gaps, and AI context.
 - **`moxie.get_doc_gaps`**: Unresolved documentation gaps with severity and the paths they concern.
@@ -170,7 +172,9 @@ Most agents accept a remote MCP server with a URL and headers. Replace `<MOXIE_T
 | Tool | Purpose |
 | --- | --- |
 | `moxie.get_ai_context` | Compact pre-edit briefing: repo status, verified commands, top conventions, open gaps, team notes. Read this first. |
-| `moxie.get_doc_impact` | Given the paths you're about to change (and any you're deleting), returns the conventions, gaps, and existing docs whose evidence overlaps them — and flags net-new/undocumented surfaces. |
+| `moxie.get_doc_impact` | Given the paths you're about to change (and any you're deleting), returns the conventions, gaps, and existing docs whose evidence overlaps them - and flags net-new/undocumented surfaces. |
+| `moxie.get_api_context` | Given paths you're about to touch, returns structured context for any API endpoints they map to: method, path, schema, and known consumers/features. |
+| `moxie.review_change` | Self-review a change before opening the PR; returns a severity-ranked verdict (clean / warnings / must-fix) covering convention breaches, stale docs, undocumented surface, and broken references. |
 | `moxie.get_conventions` | Discovered coding conventions, grouped by category, with confidence scores, agent guidance, and source-file citations. |
 | `moxie.search_docs` | Semantic + keyword search over generated docs, conventions, gaps, and AI context. |
 | `moxie.get_doc_gaps` | Unresolved documentation gaps with severity and the paths they concern. |
@@ -188,6 +192,7 @@ The server also exposes MCP prompts that script the common workflows:
 | --- | --- |
 | `document-this-change` | Runs the doc-impact check on your changed paths and walks you through proposing the doc updates so they land in the same PR. |
 | `fix-stale-docs` | Finds the repository's open documentation gaps and drift opportunities and repairs them through Moxie. |
+| `review-before-finalize` | Runs Moxie's guardrail over your diff before you open the PR to catch convention breaches, stale docs, undocumented surface, and broken references. |
 
 ---
 
