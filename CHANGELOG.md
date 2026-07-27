@@ -4,6 +4,10 @@ All notable changes to the `moxie-docs` package are documented here. The format 
 
 ## [Unreleased]
 
+### Fixed
+
+- Synced the interface snapshot (`moxieMcpTools`, `moxieMcpPrompts`, `moxieMcpServerInfo`, `moxieDocsSkillMarkdown`) with the live hosted server: added the `moxie.get_api_context` and `moxie.review_change` tools, the `review-before-finalize` prompt, bumped the reported server version to `0.4.0`, and matched punctuation changes in tool/skill descriptions. Fixes the `Drift check` workflow, which had been failing since the hosted server shipped these without a corresponding update here.
+
 ## [0.2.0] - 2026-07-21
 
 ### Added
