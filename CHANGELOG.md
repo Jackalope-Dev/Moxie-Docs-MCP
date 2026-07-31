@@ -4,6 +4,10 @@ All notable changes to the `moxie-docs` package are documented here. The format 
 
 ## [Unreleased]
 
+### Added
+
+- Claude plugin: this repo is now a plugin marketplace (`.claude-plugin/marketplace.json` + `.claude-plugin/plugin.json`) for Claude Code and Claude Cowork. `/plugin marketplace add Jackalope-Dev/Moxie-Docs-MCP` then `/plugin install moxie-docs@moxie-docs` adds the `moxie-docs` MCP server and the `moxie-docs` skill in one step. The bundled server entry (`.mcp.json`) is URL-only, so the client runs its own OAuth sign-in on first use — no token is committed. See the "Claude plugin" section of the README.
+
 ### Fixed
 
 - Synced the interface snapshot (`moxieMcpTools`, `moxieMcpPrompts`, `moxieMcpServerInfo`, `moxieDocsSkillMarkdown`) with the live hosted server: added the `moxie.get_api_context` and `moxie.review_change` tools, the `review-before-finalize` prompt, bumped the reported server version to `0.4.0`, and matched punctuation changes in tool/skill descriptions. Fixes the `Drift check` workflow, which had been failing since the hosted server shipped these without a corresponding update here.

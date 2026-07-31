@@ -1,0 +1,20 @@
+{
+  "name": "moxie-docs",
+  "description": "Connect Claude to Moxie Docs — living documentation and repository context (conventions, doc gaps, API context, source-cited pages) over MCP, plus the edit-then-document skill. Sign-in is handled by the client's OAuth flow on first use.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Jackalope Dev",
+    "url": "https://moxiedocs.com"
+  },
+  "homepage": "https://moxiedocs.com/mcp",
+  "repository": "https://github.com/Jackalope-Dev/Moxie-Docs-MCP",
+  "license": "MIT",
+  "keywords": [
+    "moxie",
+    "moxie-docs",
+    "documentation",
+    "docs",
+    "mcp",
+    "connector"
+  ]
+}
