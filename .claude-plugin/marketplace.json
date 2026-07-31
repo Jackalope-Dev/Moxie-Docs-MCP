@@ -1,0 +1,19 @@
+{
+  "name": "moxie-docs",
+  "owner": {
+    "name": "Jackalope Dev",
+    "url": "https://moxiedocs.com"
+  },
+  "plugins": [
+    {
+      "name": "moxie-docs",
+      "source": "./",
+      "description": "Connect Claude to Moxie Docs — living documentation and repository context (conventions, doc gaps, API context) over MCP, plus the edit-then-document skill.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Jackalope Dev",
+        "url": "https://moxiedocs.com"
+      }
+    }
+  ]
+}

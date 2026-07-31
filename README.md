@@ -34,6 +34,7 @@ This repository is documentation and distribution assets only. The hosted server
   - [Client configuration](#client-configuration)
   - [Tools](#tools)
   - [Prompts](#prompts)
+- [Claude plugin](#claude-plugin)
 - [Skills](#skills)
   - [The `moxie-docs` skill](#the-moxie-docs-skill)
   - [What Moxie installs into your repository](#what-moxie-installs-into-your-repository)
@@ -194,6 +195,28 @@ The server also exposes MCP prompts that script the common workflows:
 | `document-this-change` | Runs the doc-impact check on your changed paths and walks you through proposing the doc updates so they land in the same PR. |
 | `fix-stale-docs` | Finds the repository's open documentation gaps and drift opportunities and repairs them through Moxie. |
 | `review-before-finalize` | Runs Moxie's guardrail over your diff before you open the PR to catch convention breaches, stale docs, undocumented surface, and broken references. |
+
+---
+
+## Claude plugin
+
+For **Claude Code** and **Claude Cowork**, this repository doubles as a [plugin marketplace](https://code.claude.com/docs/en/plugins) — a one-command way to add the Moxie Docs connector and skill together. The plugin bundles:
+
+- the **`moxie-docs` MCP server** (the remote endpoint above), wired up so your client runs its own [OAuth sign-in](#authentication) on first use — no token to paste or commit; and
+- the **`moxie-docs` skill**, so the edit-then-document workflow is available the moment the plugin is installed.
+
+Install it from inside Claude Code (or Cowork):
+
+```
+/plugin marketplace add Jackalope-Dev/Moxie-Docs-MCP
+/plugin install moxie-docs@moxie-docs
+```
+
+The first command registers this repo as a marketplace; the second installs the `moxie-docs` plugin from it. On first use of a Moxie tool, your client opens the browser to sign in, then the [tools](#tools) and [prompts](#prompts) above are available. Update later with `/plugin marketplace update moxie-docs`, and remove with `/plugin uninstall moxie-docs@moxie-docs`.
+
+Prefer a static token, or a client without plugin support? Use the [client configuration](#client-configuration) blocks or the [CLI](#cli) instead — the plugin, the CLI, and a hand-written config all resolve to the same server and the same [auth model](#authentication).
+
+The plugin's manifest lives in [`.claude-plugin/`](.claude-plugin/) and its server entry in [`.mcp.json`](.mcp.json).
 
 ---
 
