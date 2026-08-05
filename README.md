@@ -7,7 +7,7 @@
 # Moxie Docs — MCP & Agent Tools
 
 [![npm version](https://img.shields.io/npm/v/moxie-docs.svg)](https://www.npmjs.com/package/moxie-docs)
-[![smithery badge](https://smithery.ai/badge/jackalope-digital/moxie-docs)](https://smithery.ai/servers/jackalope-digital/moxie-docs)
+[![Smithery](https://img.shields.io/badge/Smithery-moxie--docs-purple)](https://smithery.ai/servers/jackalope-digital/moxie-docs)
 [![AllMCPs](https://allmcps.com/api/badge/moxie-docs-mcp?metric=views)](https://allmcps.com/mcp/moxie-docs-mcp)
 [![LobeHub Marketplace](https://img.shields.io/badge/LobeHub-Marketplace-1677ff)](https://lobehub.com/mcp/jackalope-dev-moxie-docs-mcp)
 
