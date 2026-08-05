@@ -4,6 +4,8 @@ All notable changes to the `moxie-docs` package are documented here. The format 
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-08-05
+
 ### Added
 
 - Claude plugin: this repo is now a plugin marketplace (`.claude-plugin/marketplace.json` + `.claude-plugin/plugin.json`) for Claude Code and Claude Cowork. `/plugin marketplace add Jackalope-Dev/Moxie-Docs-MCP` then `/plugin install moxie-docs@moxie-docs` adds the `moxie-docs` MCP server and the `moxie-docs` skill in one step. The bundled server entry (`.mcp.json`) is URL-only, so the client runs its own OAuth sign-in on first use — no token is committed. See the "Claude plugin" section of the README.
@@ -35,6 +37,7 @@ All notable changes to the `moxie-docs` package are documented here. The format 
 - Local install of the `moxie-docs` agent skill (`.claude/skills/` and `.agents/skills/`) and the `AGENTS.md` guidance block, with safe marker-bounded edits.
 - Open-source MCP interface library exports (`moxie-docs`): the tool catalog (`moxieMcpTools`), prompt descriptors (`moxieMcpPrompts`), server metadata, and the `renderSkillMarkdown` / `renderAgentsGuidanceBlock` renderers. No server logic, indexing, or credentials are included.
 
-[Unreleased]: https://github.com/Jackalope-Dev/Moxie-Docs-MCP/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/Jackalope-Dev/Moxie-Docs-MCP/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/Jackalope-Dev/Moxie-Docs-MCP/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/Jackalope-Dev/Moxie-Docs-MCP/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/Jackalope-Dev/Moxie-Docs-MCP/releases/tag/v0.1.0
