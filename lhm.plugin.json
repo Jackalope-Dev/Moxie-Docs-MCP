@@ -1,5 +1,5 @@
 {
-  "identifier": "PLACEHOLDER",
+  "identifier": "jackalope-dev-moxie-docs-mcp",
   "name": "Moxie Docs",
   "description": "Living docs and MCP context for GitHub repos: conventions, gaps, and source-cited pages that land in the same PR as your change.",
   "version": "0.2.0",
@@ -56,7 +56,7 @@
     },
     {
       "name": "moxie.list_docs",
-      "description": "List the repository's generated documentation as a browsable table of contents — every doc page, not a query-filtered subset. Read-only; no side effects. Returns Markdown grouped by section, each entry with its title, slug, repository path, and source paths, plus the total count and a pagination cursor so you can tell whether more pages remain (no silent truncation). Use this to see what docs already exist before adding one (so you don't duplicate) or to find the slug to pass to propose_doc_update; when you are hunting for a specific topic, search_docs is more direct.",
+      "description": "List the repository's generated documentation as a browsable table of contents - every doc page, not a query-filtered subset. Read-only; no side effects. Returns Markdown grouped by section, each entry with its title, slug, repository path, and source paths, plus the total count and a pagination cursor so you can tell whether more pages remain (no silent truncation). Use this to see what docs already exist before adding one (so you don't duplicate) or to find the slug to pass to propose_doc_update; when you are hunting for a specific topic, search_docs is more direct.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -81,7 +81,7 @@
     },
     {
       "name": "moxie.get_doc_gaps",
-      "description": "List the unresolved documentation gaps Moxie found — areas of the codebase that lack docs. Read-only; no side effects. Returns a Markdown list, each gap with a title, severity, summary, and suggested file paths. This is gaps only; for the full prioritized work queue that also includes drift repairs and PR-template work, use get_documentation_opportunities, and to scope gaps to files you're about to edit use get_doc_impact.",
+      "description": "List the unresolved documentation gaps Moxie found - areas of the codebase that lack docs. Read-only; no side effects. Returns a Markdown list, each gap with a title, severity, summary, and suggested file paths. This is gaps only; for the full prioritized work queue that also includes drift repairs and PR-template work, use get_documentation_opportunities, and to scope gaps to files you're about to edit use get_doc_impact.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -119,7 +119,7 @@
     },
     {
       "name": "moxie.get_documentation_patterns",
-      "description": "Get Moxie's summary of how THIS repository organizes and maintains documentation — where docs live relative to code and how they are kept current. Read-only; no side effects. Returns a Markdown list of pattern entries, each with a title, explanation, and source citations. Use this to decide WHERE a new doc should go before calling propose_doc_update; for the list of WHICH docs need work, use get_documentation_opportunities instead.",
+      "description": "Get Moxie's summary of how THIS repository organizes and maintains documentation - where docs live relative to code and how they are kept current. Read-only; no side effects. Returns a Markdown list of pattern entries, each with a title, explanation, and source citations. Use this to decide WHERE a new doc should go before calling propose_doc_update; for the list of WHICH docs need work, use get_documentation_opportunities instead.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -174,8 +174,79 @@
       }
     },
     {
+      "name": "moxie.get_api_context",
+      "description": "Given file paths an agent is about to touch, return structured context for any API endpoints they map to: method, path, request/response schema, and known consumers/features. Read-only; no side effects. Call this before editing API route or schema code, alongside get_doc_impact.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository": {
+            "type": "string",
+            "description": "The target repository as \"owner/name\" (e.g. \"acme/app\"). Always pass this unless your token is scoped to a single repository. Matching is case-insensitive. If omitted when the token serves multiple repos, the call returns the list of repositories to choose from instead of an answer."
+          },
+          "paths": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Repository-relative file paths to inspect for API endpoint context."
+          }
+        }
+      }
+    },
+    {
+      "name": "moxie.review_change",
+      "description": "Self-review a change you are about to commit BEFORE opening the PR. Pass the proposed new state of each changed file (and any deleted paths); Moxie returns a severity-ranked list of violations to fix: convention breaches, docs your change makes factually false, net-new API/surface added without docs, and doc references broken by deletions. Read-only; no side effects and no writes. Returns a Markdown verdict (clean | warnings | must-fix) with each finding's location, fix, and - for doc issues - the slug to pass to propose_doc_update. Call this as the final step of the edit flow, then fix findings and re-run.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository": {
+            "type": "string",
+            "description": "The target repository as \"owner/name\" (e.g. \"acme/app\"). Always pass this unless your token is scoped to a single repository. Matching is case-insensitive. If omitted when the token serves multiple repos, the call returns the list of repositories to choose from instead of an answer."
+          },
+          "changedFiles": {
+            "type": "array",
+            "description": "The files your change adds or modifies, in their PROPOSED new state. Provide newContent (the full new file text) for each; you may also/instead provide patch (a unified diff). Max 20 files per call.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "path": {
+                  "type": "string",
+                  "description": "Repository-relative path, e.g. apps/web/src/app/api/foo/route.ts."
+                },
+                "newContent": {
+                  "type": "string",
+                  "description": "The full new contents of the file after your change."
+                },
+                "patch": {
+                  "type": "string",
+                  "description": "Optional unified diff for the file (used if newContent is omitted)."
+                },
+                "status": {
+                  "type": "string",
+                  "description": "Either \"added\" or \"modified\"."
+                }
+              },
+              "required": [
+                "path"
+              ]
+            }
+          },
+          "deletedPaths": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Repository-relative paths your change DELETES, so Moxie can flag docs whose references break."
+          }
+        },
+        "required": [
+          "changedFiles"
+        ]
+      }
+    },
+    {
       "name": "moxie.propose_doc_update",
-      "description": "Propose a documentation file to add or update as part of YOUR current change. Records a new proposal each call (not idempotent) and does NOT modify your repository or open a PR — Moxie resolves the target path and returns the path + Markdown for YOU to write into your working branch, so the docs land in the SAME PR as the code. Returns the resolved target path and the content to write. Provide either targetPath or baseSlug.",
+      "description": "Propose a documentation file to add or update as part of YOUR current change. Records a new proposal each call (not idempotent) and does NOT modify your repository or open a PR - Moxie resolves the target path and returns the path + Markdown for YOU to write into your working branch, so the docs land in the SAME PR as the code. Returns the resolved target path and the content to write. Provide either targetPath or baseSlug.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -219,7 +290,7 @@
     },
     {
       "name": "moxie.propose_doc_removal",
-      "description": "Propose deleting a Moxie-tracked documentation file that your change makes irrelevant, as part of YOUR current change. Moxie validates the path and returns it for you to delete in your working branch; Moxie itself does not delete files or open a PR — the deletion happens in your branch, so it lands in the SAME PR as the code. Returns the resolved path to delete. Provide either slug or targetPath.",
+      "description": "Propose deleting a Moxie-tracked documentation file that your change makes irrelevant, as part of YOUR current change. Moxie validates the path and returns it for you to delete in your working branch; Moxie itself does not delete files or open a PR - the deletion happens in your branch, so it lands in the SAME PR as the code. Returns the resolved path to delete. Provide either slug or targetPath.",
       "inputSchema": {
         "type": "object",
         "properties": {
