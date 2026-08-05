@@ -23,12 +23,13 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           registry-url: "https://registry.npmjs.org"
           cache: npm
 
-      # Trusted publishing requires a recent npm CLI (>=11.5.1); the version
-      # bundled with setup-node's Node 20 predates OIDC support.
+      # Trusted publishing requires a recent npm CLI (>=11.5.1), which in turn
+      # requires Node >=22 -- hence node-version 22 above (the package itself
+      # still only requires Node >=18 to run).
       - run: npm install -g npm@latest
 
       - run: npm ci
