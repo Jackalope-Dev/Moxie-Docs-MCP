@@ -10,6 +10,7 @@
 [![Smithery](https://img.shields.io/badge/Smithery-moxie--docs-purple)](https://smithery.ai/servers/jackalope-digital/moxie-docs)
 [![AllMCPs](https://allmcps.com/api/badge/moxie-docs-mcp?metric=views)](https://allmcps.com/mcp/moxie-docs-mcp)
 [![LobeHub Marketplace](https://img.shields.io/badge/LobeHub-Marketplace-1677ff)](https://lobehub.com/mcp/jackalope-dev-moxie-docs-mcp)
+[![Moxie-Docs-MCP MCP server](https://glama.ai/mcp/servers/Jackalope-Dev/Moxie-Docs-MCP/badges/score.svg)](https://glama.ai/mcp/servers/Jackalope-Dev/Moxie-Docs-MCP)
 
 The **Moxie Docs** Model Context Protocol (MCP) server, the agent **skills** Moxie installs into your repository, and the **`moxie-docs` CLI** that wires it all up — `npx moxie-docs setup`.
 
