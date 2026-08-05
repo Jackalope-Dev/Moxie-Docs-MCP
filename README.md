@@ -9,6 +9,7 @@
 [![npm version](https://img.shields.io/npm/v/moxie-docs.svg)](https://www.npmjs.com/package/moxie-docs)
 [![smithery badge](https://smithery.ai/badge/jackalope-digital/moxie-docs)](https://smithery.ai/servers/jackalope-digital/moxie-docs)
 [![AllMCPs](https://allmcps.com/api/badge/moxie-docs-mcp?metric=views)](https://allmcps.com/mcp/moxie-docs-mcp)
+[![LobeHub Marketplace](https://img.shields.io/badge/LobeHub-Marketplace-1677ff)](https://lobehub.com/mcp/jackalope-dev-moxie-docs-mcp)
 
 The **Moxie Docs** Model Context Protocol (MCP) server, the agent **skills** Moxie installs into your repository, and the **`moxie-docs` CLI** that wires it all up — `npx moxie-docs setup`.
 
@@ -288,6 +289,8 @@ Moxie Docs is listed for MCP clients and directories under these names:
 | --- | --- |
 | **Official MCP Registry** | [`io.github.Jackalope-Dev/moxie-docs`](https://registry.modelcontextprotocol.io/) — search for `moxie-docs` |
 | **Smithery** | [smithery.ai/servers/jackalope-digital/moxie-docs](https://smithery.ai/servers/jackalope-digital/moxie-docs) (badge above) |
+| **Glama** | [glama.ai/mcp/servers/Jackalope-Dev/Moxie-Docs-MCP](https://glama.ai/mcp/servers/Jackalope-Dev/Moxie-Docs-MCP) |
+| **LobeHub Marketplace** | [lobehub.com/mcp/jackalope-dev-moxie-docs-mcp](https://lobehub.com/mcp/jackalope-dev-moxie-docs-mcp) |
 | **npm CLI** | [`moxie-docs`](https://www.npmjs.com/package/moxie-docs) — `npx moxie-docs setup` |
 
 Machine-readable registry metadata for the hosted endpoint is in [`server.json`](server.json) in this repo.
