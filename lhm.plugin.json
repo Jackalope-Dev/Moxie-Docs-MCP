@@ -2,7 +2,7 @@
   "identifier": "jackalope-dev-moxie-docs-mcp",
   "name": "Moxie Docs",
   "description": "Living docs and MCP context for GitHub repos: conventions, gaps, and source-cited pages that land in the same PR as your change.",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": "Jackalope Digital",
   "authorUrl": "https://github.com/Jackalope-Dev",
   "icon": "https://moxiedocs.com/moxie-fox.svg",
