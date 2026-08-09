@@ -4,6 +4,12 @@ All notable changes to the `moxie-docs` package are documented here. The format 
 
 ## [Unreleased]
 
+## [0.3.1] - 2026-08-08
+
+### Fixed
+
+- Windows browser launcher: escape ampersands in authorization URLs passed to `cmd /c start ""` so `cmd.exe` does not truncate query parameters (`client_id`, `redirect_uri`, `code_challenge`, etc.) at the first `&`.
+
 ## [0.3.0] - 2026-08-05
 
 ### Added
