@@ -14,8 +14,10 @@ export function openBrowser(url: string): boolean {
 
     if (process.platform === "win32") {
       // `start` is a cmd builtin; the first quoted arg is the window title.
+      // Unescaped `&` characters in URLs passed to `cmd.exe` are parsed as command
+      // separators, truncating the URL at the first parameter. Escape them as `^&`.
       command = "cmd";
-      args = ["/c", "start", "", url];
+      args = ["/c", "start", "", url.replace(/&/g, "^&")];
     } else if (process.platform === "darwin") {
       command = "open";
       args = [url];
