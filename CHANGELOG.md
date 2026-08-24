@@ -4,6 +4,10 @@ All notable changes to the `moxie-docs` package are documented here. The format 
 
 ## [Unreleased]
 
+### Fixed
+
+- Synced `moxieMcpPublicMethods` with the live hosted server: added `resources/list` and `resources/read`, which the server now exposes as unauthenticated methods alongside `tools/list` and `prompts/list`. Fixes the `Drift check` workflow.
+
 ## [0.3.1] - 2026-08-08
 
 ### Fixed

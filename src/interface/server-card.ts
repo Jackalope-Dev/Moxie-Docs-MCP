@@ -15,6 +15,8 @@ export const moxieMcpPublicMethods = [
   "initialize",
   "tools/list",
   "prompts/list",
+  "resources/list",
+  "resources/read",
 ] as const;
 
 export type MoxieMcpPublicMethod = (typeof moxieMcpPublicMethods)[number];

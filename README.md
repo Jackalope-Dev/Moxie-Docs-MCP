@@ -269,7 +269,7 @@ import {
   moxieMcpCapabilities,
   buildMoxieMcpServerCard,  // full /.well-known/mcp/server-card.json document
   moxieMcpServerCard,       // canonical server card (tools + prompts included)
-  moxieMcpPublicMethods,    // ["initialize", "tools/list", "prompts/list"]
+  moxieMcpPublicMethods,    // ["initialize", "tools/list", "prompts/list", "resources/list", "resources/read"]
   renderSkillMarkdown,      // ({ repository }) => the moxie-docs SKILL.md for a repo
   renderAgentsGuidanceBlock,// ({ repository }) => the AGENTS.md guidance block
   moxieDocsSkillMarkdown,   // the canonical published skill, as a string
