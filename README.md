@@ -12,9 +12,9 @@
 [![LobeHub Marketplace](https://img.shields.io/badge/LobeHub-Marketplace-1677ff)](https://lobehub.com/mcp/jackalope-dev-moxie-docs-mcp)
 [![Moxie-Docs-MCP MCP server](https://glama.ai/mcp/servers/Jackalope-Dev/Moxie-Docs-MCP/badges/score.svg)](https://glama.ai/mcp/servers/Jackalope-Dev/Moxie-Docs-MCP)
 
-The **Moxie Docs** Model Context Protocol (MCP) server, the agent **skills** Moxie installs into your repository, and the **`moxie-docs` CLI** that wires it all up — `npx moxie-docs setup`.
+The **Moxie Docs** Model Context Protocol (MCP) server, the agent **skills** Moxie Docs installs into your repository, and the **`moxie-docs` CLI** that wires it all up — `npx moxie-docs setup`.
 
-This repo is also the open-source home of the **`moxie-docs` npm package**: a setup CLI plus the MCP *interface* (tool catalog, prompts, server metadata, and skill renderers) you can import. The hosted server, indexing pipeline, and your generated docs stay in the private Moxie service.
+This repo is also the open-source home of the **`moxie-docs` npm package**: a setup CLI plus the MCP *interface* (tool catalog, prompts, server metadata, and skill renderers) you can import. The hosted server, indexing pipeline, and your generated docs stay in the private Moxie Docs service.
 
 Moxie Docs indexes a connected GitHub repository and keeps its documentation alive — generating docs, discovering conventions, tracking documentation gaps and drift, and opening pull requests that keep docs in sync with code. The MCP server exposes that living context to coding agents (Claude Code, Cursor, VS Code, Codex, and any MCP-capable client) so they ground their work in how *your* repository actually does things — and keep the docs current as they change code.
 
@@ -39,7 +39,7 @@ This repository is documentation and distribution assets only. The hosted server
 - [Claude plugin](#claude-plugin)
 - [Skills](#skills)
   - [The `moxie-docs` skill](#the-moxie-docs-skill)
-  - [What Moxie installs into your repository](#what-moxie-installs-into-your-repository)
+  - [What Moxie Docs installs into your repository](#what-moxie-installs-into-your-repository)
 - [Use as a library](#use-as-a-library)
 - [Find the server](#find-the-server)
 - [Discovery endpoints](#discovery-endpoints)
@@ -91,7 +91,7 @@ Useful flags: `--client <name>`, `--token <dashboard-token>`, `--repo owner/name
 | **Protocol version** | `2025-06-18` |
 | **Repository selection** | Tools accept an optional `repository` argument (`owner/name`, e.g. `acme/app`). It is required only when a token serves multiple repositories and no single default applies. Matching is case-insensitive. |
 
-All write tools are **proposals** — Moxie returns the file path and content for *you* (the agent) to write into your own branch. Moxie never edits your repository directly through MCP, and never merges. Reads return compact, citation-backed context rather than raw code dumps.
+All write tools are **proposals** — Moxie Docs returns the file path and content for *you* (the agent) to write into your own branch. Moxie Docs never edits your repository directly through MCP, and never merges. Reads return compact, citation-backed context rather than raw code dumps.
 
 ### Authentication
 
@@ -101,7 +101,7 @@ All write tools are **proposals** — Moxie returns the file path and content fo
 Authorization: Bearer <MOXIE_TOKEN>
 ```
 
-Moxie stores only the token hash (plus an encrypted copy so you can reveal it), a prefix, scope, and a last-used timestamp. You can reveal, rotate, or revoke tokens from the dashboard at any time.
+Moxie Docs stores only the token hash (plus an encrypted copy so you can reveal it), a prefix, scope, and a last-used timestamp. You can reveal, rotate, or revoke tokens from the dashboard at any time.
 
 **OAuth 2.1 sign-in (for clients that support it).** MCP clients that implement the OAuth authorization flow can connect by signing in through the browser instead of pasting a token — the client discovers the server's OAuth metadata, registers itself dynamically (RFC 7591), and obtains a token via the authorization-code + PKCE flow. Discovery documents:
 
@@ -171,7 +171,7 @@ Most agents accept a remote MCP server with a URL and headers. Replace `<MOXIE_T
 - **`moxie.get_documentation_patterns`**: How the repository organizes and maintains its docs (where new docs belong).
 - **`moxie.list_docs`**: Paginated, section-grouped table of contents of every generated doc.
 - **`moxie.propose_doc_update`**: Add or update a doc as part of your current change; returns target path + Markdown to write into branch.
-- **`moxie.propose_doc_removal`**: Remove a Moxie-tracked doc your change makes obsolete; returns path to delete in branch.
+- **`moxie.propose_doc_removal`**: Remove a Moxie Docs-tracked doc your change makes obsolete; returns path to delete in branch.
 
 | Tool | Purpose |
 | --- | --- |
@@ -186,7 +186,7 @@ Most agents accept a remote MCP server with a URL and headers. Replace `<MOXIE_T
 | `moxie.get_documentation_patterns` | How the repository organizes and maintains its docs (where new docs belong). |
 | `moxie.list_docs` | Paginated, section-grouped table of contents of every generated doc. |
 | `moxie.propose_doc_update` | Add or update a doc as part of your current change; returns the target path + Markdown to write into your branch. |
-| `moxie.propose_doc_removal` | Remove a Moxie-tracked doc your change makes obsolete; returns the path to delete in your branch. |
+| `moxie.propose_doc_removal` | Remove a Moxie Docs-tracked doc your change makes obsolete; returns the path to delete in your branch. |
 
 ### Prompts
 
@@ -195,8 +195,8 @@ The server also exposes MCP prompts that script the common workflows:
 | Prompt | Purpose |
 | --- | --- |
 | `document-this-change` | Runs the doc-impact check on your changed paths and walks you through proposing the doc updates so they land in the same PR. |
-| `fix-stale-docs` | Finds the repository's open documentation gaps and drift opportunities and repairs them through Moxie. |
-| `review-before-finalize` | Runs Moxie's guardrail over your diff before you open the PR to catch convention breaches, stale docs, undocumented surface, and broken references. |
+| `fix-stale-docs` | Finds the repository's open documentation gaps and drift opportunities and repairs them through Moxie Docs. |
+| `review-before-finalize` | Runs Moxie Docs' guardrail over your diff before you open the PR to catch convention breaches, stale docs, undocumented surface, and broken references. |
 
 ---
 
@@ -214,7 +214,7 @@ Install it from inside Claude Code (or Cowork):
 /plugin install moxie-docs@moxie-docs
 ```
 
-The first command registers this repo as a marketplace; the second installs the `moxie-docs` plugin from it. On first use of a Moxie tool, your client opens the browser to sign in, then the [tools](#tools) and [prompts](#prompts) above are available. Update later with `/plugin marketplace update moxie-docs`, and remove with `/plugin uninstall moxie-docs@moxie-docs`.
+The first command registers this repo as a marketplace; the second installs the `moxie-docs` plugin from it. On first use of a Moxie Docs tool, your client opens the browser to sign in, then the [tools](#tools) and [prompts](#prompts) above are available. Update later with `/plugin marketplace update moxie-docs`, and remove with `/plugin uninstall moxie-docs@moxie-docs`.
 
 Prefer a static token, or a client without plugin support? Use the [client configuration](#client-configuration) blocks or the [CLI](#cli) instead — the plugin, the CLI, and a hand-written config all resolve to the same server and the same [auth model](#authentication).
 
@@ -224,7 +224,7 @@ The plugin's manifest lives in [`.claude-plugin/`](.claude-plugin/) and its serv
 
 ## Skills
 
-[Agent Skills](https://github.com/cloudflare/agent-skills-discovery-rfc) are small, triggered instruction files that teach an agent *when* and *how* to use a capability. Moxie publishes one skill, `moxie-docs`, that wires an agent into the edit-then-document workflow.
+[Agent Skills](https://github.com/cloudflare/agent-skills-discovery-rfc) are small, triggered instruction files that teach an agent *when* and *how* to use a capability. Moxie Docs publishes one skill, `moxie-docs`, that wires an agent into the edit-then-document workflow.
 
 ### The `moxie-docs` skill
 
@@ -236,9 +236,9 @@ https://moxiedocs.com/.well-known/agent-skills/moxie-docs/SKILL.md
 
 It tells an agent to read live context before editing (`get_ai_context`, `get_doc_impact`), follow the repository's real conventions and verified commands, and propose doc updates/removals that ship in the **same PR** as the code change — never inventing filler docs.
 
-### What Moxie installs into your repository
+### What Moxie Docs installs into your repository
 
-When Moxie connects a repository it opens one **"Add Moxie agent guidance"** PR that adds three self-healing, deterministic files (regenerated only when they drift or the repo is renamed — never churning on every index):
+When Moxie Docs connects a repository it opens one **"Add Moxie Docs agent guidance"** PR that adds three self-healing, deterministic files (regenerated only when they drift or the repo is renamed — never churning on every index):
 
 | File | Purpose |
 | --- | --- |
@@ -246,7 +246,7 @@ When Moxie connects a repository it opens one **"Add Moxie agent guidance"** PR 
 | `.claude/skills/moxie-docs/SKILL.md` | The repo-specific `moxie-docs` skill for Claude Code. |
 | `.agents/skills/moxie-docs/SKILL.md` | The same skill for `.agents`-aware clients. |
 
-The installed skill is the repo-specific variant of [`skills/moxie-docs/SKILL.md`](skills/moxie-docs/SKILL.md): identical workflow, with your `owner/name` baked in so multi-repo tokens target the right repository. Everything Moxie writes is deterministic and contains no volatile data — live conventions and commands always come from the MCP server, not the committed file.
+The installed skill is the repo-specific variant of [`skills/moxie-docs/SKILL.md`](skills/moxie-docs/SKILL.md): identical workflow, with your `owner/name` baked in so multi-repo tokens target the right repository. Everything Moxie Docs writes is deterministic and contains no volatile data — live conventions and commands always come from the MCP server, not the committed file.
 
 ---
 
@@ -258,7 +258,7 @@ Moxie Docs publishes native Cursor rule files (`.mdc`) for [Cursor](https://curs
 
 ## Use as a library
 
-The package also exports the open-source MCP **interface** — the backend-independent contract — so you can build tooling against Moxie without depending on the private server. It carries no secrets and no server logic.
+The package also exports the open-source MCP **interface** — the backend-independent contract — so you can build tooling against Moxie Docs without depending on the private server. It carries no secrets and no server logic.
 
 ```ts
 import {
@@ -278,7 +278,7 @@ import {
 } from "moxie-docs";
 ```
 
-What it does **not** include: the tool handlers, the indexing/doc-generation pipeline, AI/vector-search, the database layer, or token storage — those remain in the hosted Moxie service.
+What it does **not** include: the tool handlers, the indexing/doc-generation pipeline, AI/vector-search, the database layer, or token storage — those remain in the hosted Moxie Docs service.
 
 ---
 
@@ -298,7 +298,7 @@ Machine-readable registry metadata for the hosted endpoint is in [`server.json`]
 
 ## Discovery endpoints
 
-Moxie publishes a small machine-discoverable surface so agents and crawlers can find the server:
+Moxie Docs publishes a small machine-discoverable surface so agents and crawlers can find the server:
 
 | Endpoint | What it serves |
 | --- | --- |

@@ -15,7 +15,7 @@ things, and to keep its docs current as you change the code.
 - **Transport:** streamable-HTTP MCP
 - **Endpoint:** `https://moxiedocs.com/api/mcp`
 - **Protocol version:** `2025-06-18`
-- **Auth:** send `Authorization: Bearer <token>`. Create a token in the Moxie
+- **Auth:** send `Authorization: Bearer <token>`. Create a token in the Moxie Docs
   Docs dashboard (Settings → MCP); each token is scoped to a workspace.
 - **Repository selection:** tools accept an optional `repository` argument
   (`owner/name`, e.g. `acme/app`). It is required only when a token is
@@ -42,12 +42,12 @@ any docs work lands in the same PR:
 When your change adds, alters, or obsoletes behavior that the docs describe:
 
 - `moxie.propose_doc_update` - supply a `title` and the Markdown content;
-  Moxie resolves the target path and returns the path + Markdown for **you** to
+  Moxie Docs resolves the target path and returns the path + Markdown for **you** to
   write into your working branch.
-- `moxie.propose_doc_removal` - name a Moxie-tracked doc your change makes
-  irrelevant; Moxie validates the path and returns it for you to delete.
+- `moxie.propose_doc_removal` - name a Moxie Docs-tracked doc your change makes
+  irrelevant; Moxie Docs validates the path and returns it for you to delete.
 
-Moxie records the proposal and hands the file back to you - it does **not** open
+Moxie Docs records the proposal and hands the file back to you - it does **not** open
 a separate PR. Write the returned files into your branch so the docs ship in the
 **same PR** as the code.
 
@@ -64,11 +64,11 @@ a separate PR. Write the returned files into your branch so the docs ship in the
 | `moxie.get_documentation_patterns` | How the repository organizes and maintains its docs. |
 | `moxie.list_docs` | Paginated, section-grouped table of contents of every generated doc. |
 | `moxie.propose_doc_update` | Add/update a doc as part of your current change. |
-| `moxie.propose_doc_removal` | Delete an obsolete Moxie-tracked doc as part of your change. |
+| `moxie.propose_doc_removal` | Delete an obsolete Moxie Docs-tracked doc as part of your change. |
 
 ## Notes
 
-- All write tools are proposals returned to you; Moxie never edits the
+- All write tools are proposals returned to you; Moxie Docs never edits the
   repository directly through MCP.
 - Tools operate only on repositories connected to Moxie Docs and authorized for
   your token.

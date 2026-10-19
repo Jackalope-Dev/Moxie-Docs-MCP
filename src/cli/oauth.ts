@@ -220,7 +220,7 @@ async function postToken(
 
 /**
  * Exchange an authorization code for tokens (authorization_code grant).
- * Form-encoded per the live Moxie token endpoint.
+ * Form-encoded per the live Moxie Docs token endpoint.
  */
 export function exchangeAuthorizationCode(
   {

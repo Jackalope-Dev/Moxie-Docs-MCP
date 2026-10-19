@@ -12,7 +12,7 @@ import {
 } from "./interface/skill";
 import { moxieMcpTools } from "./interface/tools";
 
-// Network-bound: asserts this package's snapshot still matches the live Moxie
+// Network-bound: asserts this package's snapshot still matches the live Moxie Docs
 // Docs server. Skipped by default so `npm test` stays offline-safe; the
 // drift-check workflow (and `MOXIE_DRIFT_CHECK=1 npm test` locally) runs it.
 const enabled = process.env.MOXIE_DRIFT_CHECK === "1";

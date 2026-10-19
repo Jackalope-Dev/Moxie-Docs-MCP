@@ -8,7 +8,7 @@ export const moxieMcpPrompts: McpPromptDescriptor[] = [
   {
     name: "document-this-change",
     description:
-      "Document the code change you are making so the docs land in the same PR. Runs Moxie's doc-impact check on your changed paths and walks you through proposing the doc updates.",
+      "Document the code change you are making so the docs land in the same PR. Runs Moxie Docs' doc-impact check on your changed paths and walks you through proposing the doc updates.",
     arguments: [
       {
         name: "changedPaths",
@@ -19,7 +19,7 @@ export const moxieMcpPrompts: McpPromptDescriptor[] = [
       {
         name: "deletedPaths",
         description:
-          "Comma- or space-separated paths your change DELETES, so Moxie can flag docs to remove.",
+          "Comma- or space-separated paths your change DELETES, so Moxie Docs can flag docs to remove.",
         required: false,
       },
       {
@@ -33,7 +33,7 @@ export const moxieMcpPrompts: McpPromptDescriptor[] = [
   {
     name: "fix-stale-docs",
     description:
-      "Find this repo's open documentation gaps and drift opportunities and repair them, proposing updates through Moxie.",
+      "Find this repo's open documentation gaps and drift opportunities and repair them, proposing updates through Moxie Docs.",
     arguments: [
       {
         name: "severity",
@@ -51,7 +51,7 @@ export const moxieMcpPrompts: McpPromptDescriptor[] = [
   {
     name: "review-before-finalize",
     description:
-      "Self-review the change you just made before opening the PR: run Moxie's guardrail over your diff to catch convention breaches, docs your change makes false, undocumented new surface, and broken references.",
+      "Self-review the change you just made before opening the PR: run Moxie Docs' guardrail over your diff to catch convention breaches, docs your change makes false, undocumented new surface, and broken references.",
     arguments: [
       {
         name: "repository",

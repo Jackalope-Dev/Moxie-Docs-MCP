@@ -4,9 +4,16 @@ All notable changes to the `moxie-docs` package are documented here. The format 
 
 ## [Unreleased]
 
+## [0.3.2] - 2026-10-19
+
 ### Fixed
 
 - Synced `moxieMcpPublicMethods` with the live hosted server: added `resources/list` and `resources/read`, which the server now exposes as unauthenticated methods alongside `tools/list` and `prompts/list`. Fixes the `Drift check` workflow.
+- Synced the bundled `moxieDocsSkillMarkdown` (and `skills/moxie-docs/SKILL.md`) with the skill served at `/.well-known/agent-skills/moxie-docs/SKILL.md`, which now names the product "Moxie Docs" throughout. Fixes the `Drift check` workflow.
+
+### Changed
+
+- The product name is now written "Moxie Docs" (never bare "Moxie") across user- and agent-facing copy: tool and prompt descriptions (now identical to the live server's), the rendered repo skill and `AGENTS.md` guidance block, `lhm.plugin.json`, and the README. Identifiers are unchanged: `moxie.*` tool names and the `moxie-docs` server, skill, and package names.
 
 ## [0.3.1] - 2026-08-08
 
