@@ -4,6 +4,10 @@ All notable changes to the `moxie-docs` package are documented here. The format 
 
 ## [Unreleased]
 
+### Fixed
+
+- Synced the bundled `moxieDocsSkillMarkdown` (and `skills/moxie-docs/SKILL.md`) with the skill served at `/.well-known/agent-skills/moxie-docs/SKILL.md`: its tool table now lists `moxie.get_api_context` and `moxie.review_change` and uses the live tool descriptions. Fixes the `Drift check` workflow, which had failed since 2026-11-09.
+
 ## [0.4.0] - 2026-11-13
 
 ### Fixed

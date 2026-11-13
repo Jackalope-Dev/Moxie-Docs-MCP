@@ -123,16 +123,18 @@ a separate PR. Write the returned files into your branch so the docs ship in the
 
 | Tool | Purpose |
 | --- | --- |
-| \`moxie.get_ai_context\` | Compact pre-edit briefing for the repository. |
-| \`moxie.get_doc_impact\` | Conventions/gaps/docs overlapping paths you will change. |
-| \`moxie.get_conventions\` | Discovered conventions with confidence and citations. |
-| \`moxie.search_docs\` | Search generated docs, conventions, gaps, and AI context. |
-| \`moxie.get_doc_gaps\` | Unresolved documentation gaps with severity and paths. |
-| \`moxie.get_documentation_opportunities\` | Recommended doc work: missing docs, drift repairs, PR templates. |
-| \`moxie.get_documentation_patterns\` | How the repository organizes and maintains its docs. |
-| \`moxie.list_docs\` | Paginated, section-grouped table of contents of every generated doc. |
-| \`moxie.propose_doc_update\` | Add/update a doc as part of your current change. |
-| \`moxie.propose_doc_removal\` | Delete an obsolete Moxie Docs-tracked doc as part of your change. |
+| \`moxie.get_conventions\` | Returns categorized repo conventions, confidence, and evidence paths agents should follow before editing. |
+| \`moxie.search_docs\` | Searches generated docs and source-linked explanations for implementation details, APIs, flows, and patterns. |
+| \`moxie.list_docs\` | Lists every generated doc as a paginated table of contents, grouped by section, so agents can browse what already exists before adding more. |
+| \`moxie.get_doc_gaps\` | Lists missing or stale documentation areas with severity, summaries, and suggested doc paths. |
+| \`moxie.get_documentation_opportunities\` | Lists recommended documentation updates agents should consider while planning or finishing code changes. |
+| \`moxie.get_documentation_patterns\` | Explains where this repo keeps docs today so generated updates follow the team's existing structure. |
+| \`moxie.get_ai_context\` | Provides compact agent-ready context: setup status, commands, conventions, docs, gaps, and team notes. |
+| \`moxie.get_doc_impact\` | Given the file paths an agent plans to change, returns the matching conventions, doc gaps, and existing docs to update in the same PR, and flags net-new or undocumented paths. |
+| \`moxie.get_api_context\` | Given the files an agent is about to touch, returns the API endpoints they map to with method, path, request and response schema, and known consumers. |
+| \`moxie.review_change\` | Self-reviews a change before the PR opens: flags convention breaches, docs the change makes false, undocumented new surface, and doc references broken by deletions. |
+| \`moxie.propose_doc_update\` | Resolves where a doc should live and returns the path and content for the agent to write into its own branch, so docs land in the same PR as the code change. |
+| \`moxie.propose_doc_removal\` | Validates and returns the path of a now-irrelevant Moxie Docs-tracked doc so the agent deletes it in the same PR as the code change. |
 
 ## Notes
 
