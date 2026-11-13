@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { PACKAGE_VERSION } from "../version";
 import { print, printError } from "./ui";
 
 /**
@@ -9,7 +10,7 @@ import { print, printError } from "./ui";
  * break the others.
  */
 
-const VERSION = "0.1.0";
+const VERSION = PACKAGE_VERSION;
 
 type CommandRunner = (args: string[]) => Promise<void>;
 

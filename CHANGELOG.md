@@ -4,6 +4,14 @@ All notable changes to the `moxie-docs` package are documented here. The format 
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-11-13
+
+### Fixed
+
+- `serverInfo.version` is now read from `package.json` at build time instead of a hand-maintained constant, so the reported version, the npm package, and the MCP Registry entry (`server.json`) can no longer drift. This release aligns all three with the hosted server, which already reports `0.4.0`; the registry entry had been left at `0.3.0`.
+- `moxie-docs --version` printed a stale `0.1.0`; it now prints the package version.
+- The Claude plugin manifests and `lhm.plugin.json` now carry the package version, and a test keeps them, `server.json`, and `serverInfo.version` in step with `package.json`.
+
 ## [0.3.2] - 2026-10-19
 
 ### Fixed
